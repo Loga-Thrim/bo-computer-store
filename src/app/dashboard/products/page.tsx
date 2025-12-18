@@ -431,7 +431,7 @@ function ProductForm({
                   </>
                 )}
                 {uploading === "image" && <span className="text-[10px] text-blue-500">อัพโหลด...</span>}
-                <input type="file" accept="image/*" capture="environment" onChange={(e) => handleUpload(e, "image")} className="hidden" />
+                <input type="file" accept="image/*" onChange={(e) => handleUpload(e, "image")} className="hidden" />
               </label>
               <label className="flex flex-col items-center justify-center gap-1 p-3 bg-amber-50 rounded-xl cursor-pointer hover:bg-amber-100 active:scale-95 transition aspect-square">
                 {form.buyReceiptImage ? (
@@ -443,7 +443,7 @@ function ProductForm({
                   </>
                 )}
                 {uploading === "buyReceiptImage" && <span className="text-[10px] text-blue-500">อัพโหลด...</span>}
-                <input type="file" accept="image/*" capture="environment" onChange={(e) => handleUpload(e, "buyReceiptImage")} className="hidden" />
+                <input type="file" accept="image/*" onChange={(e) => handleUpload(e, "buyReceiptImage")} className="hidden" />
               </label>
               <label className="flex flex-col items-center justify-center gap-1 p-3 bg-emerald-50 rounded-xl cursor-pointer hover:bg-emerald-100 active:scale-95 transition aspect-square">
                 {form.sellReceiptImage ? (
@@ -455,7 +455,7 @@ function ProductForm({
                   </>
                 )}
                 {uploading === "sellReceiptImage" && <span className="text-[10px] text-blue-500">อัพโหลด...</span>}
-                <input type="file" accept="image/*" capture="environment" onChange={(e) => handleUpload(e, "sellReceiptImage")} className="hidden" />
+                <input type="file" accept="image/*" onChange={(e) => handleUpload(e, "sellReceiptImage")} className="hidden" />
               </label>
             </div>
           </div>
