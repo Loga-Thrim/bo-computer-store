@@ -315,8 +315,8 @@ function ProductForm({
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end md:items-center justify-center z-[60]">
-      <div className="bg-white rounded-t-3xl md:rounded-2xl w-full md:max-w-lg max-h-[90vh] md:max-h-[85vh] overflow-hidden md:mx-4 shadow-2xl">
-        <div className="flex items-center justify-between p-4 border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-sm">
+      <div className="bg-white rounded-t-3xl md:rounded-2xl w-full md:max-w-lg overflow-hidden md:mx-4 shadow-2xl flex flex-col" style={{ maxHeight: 'calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 20px)', height: 'auto' }}>
+        <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-white shrink-0">
           <h2 className="text-lg font-bold text-gray-900">
             {product ? "แก้ไขสินค้า" : "เพิ่มสินค้า"}
           </h2>
@@ -325,7 +325,7 @@ function ProductForm({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 space-y-5 overflow-y-auto max-h-[calc(90vh-140px)] md:max-h-[calc(85vh-140px)]">
+        <form onSubmit={handleSubmit} className="p-4 space-y-5 overflow-y-auto flex-1 overscroll-contain">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">ชื่อสินค้า</label>
             <input
@@ -493,7 +493,7 @@ function ProductForm({
           </div>
         </form>
 
-        <div className="p-4 border-t border-gray-100 bg-white/95 backdrop-blur-sm sticky bottom-0">
+        <div className="p-4 border-t border-gray-100 bg-white shrink-0 pb-[calc(1rem+env(safe-area-inset-bottom))]">
           <div className="flex gap-3">
             <button
               type="button"
