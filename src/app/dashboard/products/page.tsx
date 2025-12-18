@@ -74,7 +74,7 @@ export default function ProductsPage() {
           onClick={() => { setEditingProduct(null); setShowForm(true); }}
           className="flex items-center gap-2 px-3 py-2 md:px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm md:text-base"
         >
-          <Plus size={18} /> <span className="hidden sm:inline">เพิ่ม</span>สินค้า
+          <Plus size={18} />สินค้า
         </button>
       </div>
 
