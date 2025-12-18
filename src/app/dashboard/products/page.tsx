@@ -334,7 +334,6 @@ function ProductForm({
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               className="w-full px-4 py-3.5 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-base transition"
               placeholder="เช่น Ram DDR4 16GB"
-              autoFocus
             />
           </div>
 
