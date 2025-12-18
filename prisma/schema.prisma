@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id              String    @id @default(cuid())
+  date            DateTime?
+  name            String?
+  image           String?
+  serialNumber    String?
+  buyPrice        Float?
+  sellPrice       Float?
+  otherCosts      Float?
+  profit          Float?
+  warrantyStart   DateTime?
+  warrantyEnd     DateTime?
+  buyReceiptImage String?
+  sellReceiptImage String?
+  status          String    @default("in_stock")
+  note            String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  date        DateTime @default(now())
+  category    String
+  amount      Float
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PriceList {
+  id        String   @id @default(cuid())
+  name      String
+  category  String?
+  price     Float
+  note      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FinancialRecord {
+  id          String   @id @default(cuid())
+  month       String
+  totalCost   Float    @default(0)
+  totalProfit Float    @default(0)
+  balance     Float    @default(0)
+  note        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([month])
+}
