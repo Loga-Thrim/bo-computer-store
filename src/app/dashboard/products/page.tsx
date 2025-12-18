@@ -325,7 +325,7 @@ function ProductForm({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 space-y-5 overflow-y-auto flex-1 overscroll-contain">
+        <form onSubmit={handleSubmit} className="p-4 space-y-5 overflow-y-auto overflow-x-hidden flex-1 overscroll-contain">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">ชื่อสินค้า</label>
             <input
