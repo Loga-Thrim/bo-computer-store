@@ -23,14 +23,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
+    console.log("Uploading file:", file.name, file.type, file.size);
+
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const base64 = buffer.toString("base64");
     const dataUri = `data:${file.type};base64,${base64}`;
 
+    console.log("Cloudinary config:", {
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY ? "***" : "MISSING",
+      api_secret: process.env.CLOUDINARY_API_SECRET ? "***" : "MISSING",
+    });
+
     const result = await cloudinary.uploader.upload(dataUri, {
       folder: "bo-computer-store",
     });
+
+    console.log("Cloudinary result:", result.secure_url);
 
     return NextResponse.json({ url: result.secure_url });
   } catch (error) {
