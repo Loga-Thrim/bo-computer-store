@@ -274,13 +274,71 @@ function ProductForm({
   });
   const [uploading, setUploading] = useState<string | null>(null);
 
+  const compressImage = (file: File, maxSizeMB: number = 2): Promise<File> => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = document.createElement("img");
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          let { width, height } = img;
+          
+          // Resize if too large
+          const maxDimension = 1920;
+          if (width > maxDimension || height > maxDimension) {
+            if (width > height) {
+              height = (height / width) * maxDimension;
+              width = maxDimension;
+            } else {
+              width = (width / height) * maxDimension;
+              height = maxDimension;
+            }
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d")!;
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Compress with quality adjustment
+          let quality = 0.8;
+          const tryCompress = () => {
+            canvas.toBlob(
+              (blob) => {
+                if (blob && blob.size > maxSizeMB * 1024 * 1024 && quality > 0.3) {
+                  quality -= 0.1;
+                  tryCompress();
+                } else if (blob) {
+                  resolve(new File([blob], file.name, { type: "image/jpeg" }));
+                } else {
+                  resolve(file);
+                }
+              },
+              "image/jpeg",
+              quality
+            );
+          };
+          tryCompress();
+        };
+        img.src = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setUploading(field);
+    
+    // Compress if file is larger than 2MB
+    const processedFile = file.size > 2 * 1024 * 1024 
+      ? await compressImage(file) 
+      : file;
+    
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", processedFile);
 
     const res = await fetch("/api/upload", { method: "POST", body: formData });
     const data = await res.json();
