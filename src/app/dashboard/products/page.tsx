@@ -332,9 +332,9 @@ function ProductForm({
 
     setUploading(field);
     
-    // Compress if file is larger than 2MB
-    const processedFile = file.size > 2 * 1024 * 1024 
-      ? await compressImage(file) 
+    // Always compress images for faster upload and smaller storage
+    const processedFile = file.type.startsWith("image/") 
+      ? await compressImage(file, 1) 
       : file;
     
     const formData = new FormData();
