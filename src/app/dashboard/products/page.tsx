@@ -35,6 +35,7 @@ export default function ProductsPage() {
   const [filterStatus, setFilterStatus] = useState("");
   const [filterMonth, setFilterMonth] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const fetchProducts = useCallback(async () => {
     const params = new URLSearchParams();
@@ -135,7 +136,14 @@ export default function ProductsPage() {
                   </td>
                   <td className="px-4 py-3">
                     {product.image ? (
-                      <Image src={product.image} alt="" width={40} height={40} className="w-10 h-10 object-cover rounded" />
+                      <Image 
+                        src={product.image} 
+                        alt="" 
+                        width={40} 
+                        height={40} 
+                        className="w-10 h-10 object-cover rounded cursor-pointer hover:opacity-80 transition" 
+                        onClick={() => setPreviewImage(product.image)}
+                      />
                     ) : (
                       <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center">
                         <ImageIcon size={16} className="text-gray-400" />
@@ -186,7 +194,14 @@ export default function ProductsPage() {
           <div key={product.id} className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
             <div className="flex gap-3">
               {product.image ? (
-                <Image src={product.image} alt="" width={56} height={56} className="w-14 h-14 object-cover rounded-lg shrink-0" />
+                <Image 
+                  src={product.image} 
+                  alt="" 
+                  width={56} 
+                  height={56} 
+                  className="w-14 h-14 object-cover rounded-lg shrink-0 cursor-pointer active:opacity-80" 
+                  onClick={() => setPreviewImage(product.image)}
+                />
               ) : (
                 <div className="w-14 h-14 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">
                   <ImageIcon size={20} className="text-gray-400" />
@@ -243,6 +258,28 @@ export default function ProductsPage() {
           onClose={() => setShowForm(false)}
           onSave={() => { setShowForm(false); fetchProducts(); }}
         />
+      )}
+
+      {previewImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-[70] p-4"
+          onClick={() => setPreviewImage(null)}
+        >
+          <button 
+            className="absolute top-4 right-4 p-2 text-white/80 hover:text-white transition"
+            onClick={() => setPreviewImage(null)}
+          >
+            <X size={28} />
+          </button>
+          <Image 
+            src={previewImage} 
+            alt="Preview" 
+            width={800} 
+            height={800} 
+            className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
       )}
     </div>
   );
