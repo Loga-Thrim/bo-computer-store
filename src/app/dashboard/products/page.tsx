@@ -516,53 +516,53 @@ function ProductForm({
 
           <div className="space-y-3">
             <label className="block text-sm font-semibold text-gray-700">📷 รูปภาพ</label>
-            <div className="grid grid-cols-4 gap-2">
-              <label className="flex flex-col items-center justify-center gap-1 p-2 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 active:scale-95 transition aspect-square">
+            <div className="grid grid-cols-2 gap-3">
+              <label className="flex flex-col items-center justify-center gap-2 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 active:scale-95 transition aspect-square">
                 {form.image ? (
-                  <Image src={form.image} alt="" width={64} height={64} className="w-full h-full object-cover rounded-lg" />
+                  <Image src={form.image} alt="" width={80} height={80} className="w-full h-full object-cover rounded-lg" />
                 ) : (
                   <>
-                    <Camera size={20} className="text-gray-400" />
-                    <span className="text-[9px] text-gray-500">สินค้า</span>
+                    <Camera size={28} className="text-gray-400" />
+                    <span className="text-xs text-gray-500">รูปสินค้า</span>
                   </>
                 )}
-                {uploading === "image" && <span className="text-[9px] text-blue-500">...</span>}
+                {uploading === "image" && <span className="text-xs text-blue-500">อัพโหลด...</span>}
                 <input type="file" accept="image/*" onChange={(e) => handleUpload(e, "image")} className="hidden" />
               </label>
-              <label className="flex flex-col items-center justify-center gap-1 p-2 bg-amber-50 rounded-xl cursor-pointer hover:bg-amber-100 active:scale-95 transition aspect-square">
+              <label className="flex flex-col items-center justify-center gap-2 p-3 bg-amber-50 rounded-xl cursor-pointer hover:bg-amber-100 active:scale-95 transition aspect-square">
                 {form.buyReceiptImage ? (
-                  <Image src={form.buyReceiptImage} alt="" width={64} height={64} className="w-full h-full object-cover rounded-lg" />
+                  <Image src={form.buyReceiptImage} alt="" width={80} height={80} className="w-full h-full object-cover rounded-lg" />
                 ) : (
                   <>
-                    <Receipt size={20} className="text-amber-500" />
-                    <span className="text-[9px] text-amber-600">ใบเสร็จซื้อ</span>
+                    <Receipt size={28} className="text-amber-500" />
+                    <span className="text-xs text-amber-600">ใบเสร็จซื้อ</span>
                   </>
                 )}
-                {uploading === "buyReceiptImage" && <span className="text-[9px] text-blue-500">...</span>}
+                {uploading === "buyReceiptImage" && <span className="text-xs text-blue-500">อัพโหลด...</span>}
                 <input type="file" accept="image/*" onChange={(e) => handleUpload(e, "buyReceiptImage")} className="hidden" />
               </label>
-              <label className="flex flex-col items-center justify-center gap-1 p-2 bg-purple-50 rounded-xl cursor-pointer hover:bg-purple-100 active:scale-95 transition aspect-square">
+              <label className="flex flex-col items-center justify-center gap-2 p-3 bg-purple-50 rounded-xl cursor-pointer hover:bg-purple-100 active:scale-95 transition aspect-square">
                 {form.depositReceiptImage ? (
-                  <Image src={form.depositReceiptImage} alt="" width={64} height={64} className="w-full h-full object-cover rounded-lg" />
+                  <Image src={form.depositReceiptImage} alt="" width={80} height={80} className="w-full h-full object-cover rounded-lg" />
                 ) : (
                   <>
-                    <Receipt size={20} className="text-purple-500" />
-                    <span className="text-[9px] text-purple-600">ใบมัดจำ</span>
+                    <Receipt size={28} className="text-purple-500" />
+                    <span className="text-xs text-purple-600">ใบเสร็จมัดจำ</span>
                   </>
                 )}
-                {uploading === "depositReceiptImage" && <span className="text-[9px] text-blue-500">...</span>}
+                {uploading === "depositReceiptImage" && <span className="text-xs text-blue-500">อัพโหลด...</span>}
                 <input type="file" accept="image/*" onChange={(e) => handleUpload(e, "depositReceiptImage")} className="hidden" />
               </label>
-              <label className="flex flex-col items-center justify-center gap-1 p-2 bg-emerald-50 rounded-xl cursor-pointer hover:bg-emerald-100 active:scale-95 transition aspect-square">
+              <label className="flex flex-col items-center justify-center gap-2 p-3 bg-emerald-50 rounded-xl cursor-pointer hover:bg-emerald-100 active:scale-95 transition aspect-square">
                 {form.sellReceiptImage ? (
-                  <Image src={form.sellReceiptImage} alt="" width={64} height={64} className="w-full h-full object-cover rounded-lg" />
+                  <Image src={form.sellReceiptImage} alt="" width={80} height={80} className="w-full h-full object-cover rounded-lg" />
                 ) : (
                   <>
-                    <Receipt size={20} className="text-emerald-500" />
-                    <span className="text-[9px] text-emerald-600">ใบเสร็จขาย</span>
+                    <Receipt size={28} className="text-emerald-500" />
+                    <span className="text-xs text-emerald-600">ใบเสร็จขาย</span>
                   </>
                 )}
-                {uploading === "sellReceiptImage" && <span className="text-[9px] text-blue-500">...</span>}
+                {uploading === "sellReceiptImage" && <span className="text-xs text-blue-500">อัพโหลด...</span>}
                 <input type="file" accept="image/*" onChange={(e) => handleUpload(e, "sellReceiptImage")} className="hidden" />
               </label>
             </div>
