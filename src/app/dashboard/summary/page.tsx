@@ -66,7 +66,7 @@ export default function SummaryPage() {
     const endDate = new Date(parseInt(year), parseInt(month), 0);
 
     const [productsRes, expensesRes, financialRes] = await Promise.all([
-      fetch(`/api/products?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`),
+      fetch(`/api/products?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}&dateField=updatedAt`),
       fetch(`/api/expenses?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`),
       fetch(`/api/financial?month=${filterMonth}`),
     ]);

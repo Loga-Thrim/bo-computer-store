@@ -17,11 +17,12 @@ export async function GET(request: Request) {
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
   const status = searchParams.get("status");
+  const dateField = searchParams.get("dateField") || "date"; // "date" or "updatedAt"
 
   const where: Record<string, unknown> = {};
 
   if (startDate && endDate) {
-    where.date = {
+    where[dateField] = {
       gte: new Date(startDate),
       lte: new Date(endDate),
     };
@@ -33,7 +34,10 @@ export async function GET(request: Request) {
 
   const products = await prisma.product.findMany({
     where,
-    orderBy: { createdAt: "desc" },
+    orderBy: [
+      { status: "asc" },
+      { updatedAt: "desc" },
+    ],
   });
 
   return NextResponse.json(products);
@@ -68,6 +72,7 @@ export async function POST(request: Request) {
         warrantyEnd: data.warrantyEnd ? new Date(data.warrantyEnd) : null,
         buyReceiptImage: data.buyReceiptImage || null,
         sellReceiptImage: data.sellReceiptImage || null,
+        depositReceiptImage: data.depositReceiptImage || null,
         status: data.status || "in_stock",
         note: data.note || null,
       },

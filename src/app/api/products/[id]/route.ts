@@ -54,6 +54,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
         warrantyEnd: data.warrantyEnd ? new Date(data.warrantyEnd) : null,
         buyReceiptImage: data.buyReceiptImage || null,
         sellReceiptImage: data.sellReceiptImage || null,
+        depositReceiptImage: data.depositReceiptImage || null,
         status: data.status || "in_stock",
         note: data.note || null,
       },
