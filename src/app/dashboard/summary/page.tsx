@@ -65,13 +65,15 @@ export default function SummaryPage() {
     const startDate = new Date(parseInt(year), parseInt(month) - 1, 1);
     const endDate = new Date(parseInt(year), parseInt(month), 0);
 
-    const [productsRes, expensesRes, financialRes] = await Promise.all([
+    const [productsRes, allProductsRes, expensesRes, financialRes] = await Promise.all([
       fetch(`/api/products?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}&dateField=updatedAt`),
+      fetch(`/api/products`),
       fetch(`/api/expenses?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`),
       fetch(`/api/financial?month=${filterMonth}`),
     ]);
 
     const products = await productsRes.json();
+    const allProducts = await allProductsRes.json();
     const expensesData = await expensesRes.json();
     const financialData = await financialRes.json();
 
@@ -84,7 +86,7 @@ export default function SummaryPage() {
     });
 
     const soldProducts = products.filter((p: { status: string }) => p.status === "sold");
-    const inStockProducts = products.filter((p: { status: string }) => p.status === "in_stock");
+    const allInStockProducts = allProducts.filter((p: { status: string }) => p.status === "in_stock");
 
     const totalCost = soldProducts.reduce((sum: number, p: { buyPrice: number | null; otherCosts: number | null }) => 
       sum + (p.buyPrice || 0) + (p.otherCosts || 0), 0);
@@ -93,7 +95,7 @@ export default function SummaryPage() {
     const totalProfit = soldProducts.reduce((sum: number, p: { profit: number | null }) => 
       sum + (p.profit || 0), 0);
     const totalExpenses = expensesData.reduce((sum: number, e: { amount: number }) => sum + e.amount, 0);
-    const inStockValue = inStockProducts.reduce((sum: number, p: { buyPrice: number | null; otherCosts: number | null }) => 
+    const inStockValue = allInStockProducts.reduce((sum: number, p: { buyPrice: number | null; otherCosts: number | null }) => 
       sum + (p.buyPrice || 0) + (p.otherCosts || 0), 0);
 
     setSummary({
@@ -104,7 +106,7 @@ export default function SummaryPage() {
       netProfit: totalProfit - totalExpenses,
       inStockValue,
       soldCount: soldProducts.length,
-      inStockCount: inStockProducts.length,
+      inStockCount: allInStockProducts.length,
     });
   }, [filterMonth]);
 
